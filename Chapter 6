@@ -1,1 +1,168 @@
+import math
 
+a_ceil = 2.3
+ceil_result = math.ceil(a_ceil)
+print(f"Ceil of {a_ceil} is: {ceil_result}")
+
+a_floor = 2.3
+floor_result = math.floor(a_floor)
+print(f"Floor of {a_floor} is: {floor_result}")
+
+a_factorial = 5
+factorial_result = math.factorial(a_factorial)
+print(f"Factorial of {a_factorial} is: {factorial_result}")
+
+exponential_result = math.pow(2, 3)
+print(f"2^3 is: {exponential_result}")
+
+a_sqrt = 16
+sqrt_result = math.sqrt(a_sqrt)
+print(f"Square root of {a_sqrt} is: {sqrt_result}")
+-------------------------------------------------------------
+import numpy as np
+
+a = np.array([20, 23, 82, 40, 32, 15, 67, 52])
+
+even_indices = np.where(a % 2 == 0)
+print("Indices of even numbers:", even_indices)
+
+sorted_array = np.sort(a)
+print("Sorted array:", sorted_array)
+
+slice1 = a[3:]
+print("Slice from index 3 to the end:", slice1)
+
+slice2 = a[0:5]
+print("Slice from index 0 to index 4:", slice2)
+
+negative_slice = a[-5:-2]
+print("Negative slicing to get [32 15 67]:", negative_slice)
+----------------------------------------------------------------
+import operator
+
+def add(x, y):
+    return operator.add(x, y)
+
+def subtract(x, y):
+    return operator.sub(x, y)
+
+def multiply(x, y):
+    return operator.mul(x, y)
+
+def divide(x, y):
+    if y != 0:
+        return operator.truediv(x, y)
+    else:
+        return "Error: Cannot divide by zero"
+
+def modulus(x, y):
+    if y != 0:
+        return operator.mod(x, y)
+    else:
+        return "Error: Cannot calculate modulus by zero"
+
+def check_greater(x, y):
+    return operator.gt(x, y)
+
+def calculator():
+    while True:
+        print("Calculator Menu:")
+        print("1. Add")
+        print("2. Subtract")
+        print("3. Multiply")
+        print("4. Divide")
+        print("5. Modulus")
+        print("6. Check greater number")
+        print("Q. Quit")
+
+        choice = input("Enter your choice (1-6 or Q to quit): ").upper()
+
+        if choice == 'Q':
+            break
+
+        if choice in ['1', '2', '3', '4', '5', '6']:
+            try:
+                x = float(input("Enter the first number: "))
+                y = float(input("Enter the second number: "))
+
+                if choice == '1':
+                    result = add(x, y)
+                elif choice == '2':
+                    result = subtract(x, y)
+                elif choice == '3':
+                    result = multiply(x, y)
+                elif choice == '4':
+                    result = divide(x, y)
+                elif choice == '5':
+                    result = modulus(x, y)
+                elif choice == '6':
+                    result = check_greater(x, y)
+
+                print("Result:", result)
+
+            except ValueError:
+                print("Error: Invalid input. Please enter valid numbers.")
+        else:
+            print("Error: Invalid choice. Please enter a number from 1 to 6 or Q to quit.")
+
+if __name__ == "__main__":
+    calculator()
+------------------------------------------------------------------------------------
+import matplotlib.pyplot as plt
+
+x_line = [1, 6]
+y_line = [2, 8]
+
+x_dotted_line = [1, 2, 6, 8]
+y_dotted_line = [3, 8, 1, 10]
+
+plt.plot(x_line, y_line, label='Line')
+plt.plot(x_dotted_line, y_dotted_line, 'r--', label='Dotted Line')
+
+# title and the labels
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+plt.title('Line and Dotted Line Graph')
+
+plt.legend()
+
+# shows the graph
+plt.show()
+----------------------------------------------------------------------------
+import json
+
+# this is the function that puts the details to the json file
+def write_to_json(name, student_id, course):
+    student_details = {
+        "Name": name,
+        "ID": student_id,
+        "course": course
+    }
+
+    student_details["CourseDetails"] = {
+        "Group": input("Enter the group: "),
+        "Year": int(input("Enter the year: "))
+    }
+
+    with open('StudentJson.json', 'w') as file:
+        json.dump({"StudentDetails": [student_details]}, file, indent=2)
+
+# function to read and print student details from JSON file
+def read_and_print_json():
+    with open('StudentJson.json', 'r') as file:
+        data = json.load(file)
+
+    print("\nDetails of the Student are")
+    print(f"\tName: {data['StudentDetails'][0]['Name']}")
+    print(f"\tID: {data['StudentDetails'][0]['ID']}")
+    print(f"\tcourse: {data['StudentDetails'][0]['course']}")
+    print(f"\tGroup: {data['StudentDetails'][0]['CourseDetails']['Group']}")
+    print(f"\tYear: {data['StudentDetails'][0]['CourseDetails']['Year']}")
+
+name = input("Enter the student name: ")
+student_id = int(input("Enter the student ID: "))
+course = input("Enter the course: ")
+
+write_to_json(name, student_id, course)
+
+read_and_print_json()

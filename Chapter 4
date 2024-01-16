@@ -1,0 +1,209 @@
+import tkinter as tk
+
+def save_data():
+    name = name_entry.get()
+    age = age_entry.get()
+    hometown = hometown_entry.get()
+
+    with open('bio.txt', 'w') as file:
+        file.write(f'Name: {name}\n')
+        file.write(f'Age: {age}\n')
+        file.write(f'Hometown: {hometown}\n')
+
+def read_data():
+    try:
+        with open('bio.txt', 'r') as file:
+            data = file.read()
+            output_label.config(text=data)
+    except FileNotFoundError:
+        output_label.config(text="File not found. Save data first.")
+
+#this is the main window
+app = tk.Tk()
+app.title("User Information App")
+
+#these are the variables to enter, such as name age and hometown
+name_label = tk.Label(app, text="Name:")
+name_label.grid(row=0, column=0, sticky="w")
+
+name_entry = tk.Entry(app)
+name_entry.grid(row=0, column=1)
+
+age_label = tk.Label(app, text="Age:")
+age_label.grid(row=1, column=0, sticky="w")
+
+age_entry = tk.Entry(app)
+age_entry.grid(row=1, column=1)
+
+hometown_label = tk.Label(app, text="Hometown:")
+hometown_label.grid(row=2, column=0, sticky="w")
+
+hometown_entry = tk.Entry(app)
+hometown_entry.grid(row=2, column=1)
+
+save_button = tk.Button(app, text="Save Data", command=save_data)
+save_button.grid(row=3, column=0, columnspan=2, pady=10)
+
+read_button = tk.Button(app, text="Read Data", command=read_data)
+read_button.grid(row=4, column=0, columnspan=2, pady=10)
+
+output_label = tk.Label(app, text="")
+output_label.grid(row=5, column=0, columnspan=2)
+
+app.mainloop()
+------------------------------------------------------------------------
+import tkinter as tk
+
+def count_strings():
+    target_strings = [
+        "Hello my name is Peter Parker",
+        "I love Python Programming",
+        "Love",
+        "Enemy"
+    ]
+
+    try:
+        with open('sentences.txt', 'r') as file:
+            content = file.read()
+
+            # here is the user input
+            user_input = entry_search.get().strip()
+
+            if user_input:
+                result = {user_input: content.lower().count(user_input.lower())}
+            else:
+
+                result = {string: content.lower().count(string.lower()) for string in target_strings}
+
+            result_text = "\n".join([f'{string}: {count}' for string, count in result.items()])
+            output_label.config(text=result_text)
+
+    except FileNotFoundError:
+        output_label.config(text="File not found.")
+
+# main window
+app = tk.Tk()
+app.title("CountString App")
+
+search_label = tk.Label(app, text="Free Search:")
+search_label.pack()
+
+entry_search = tk.Entry(app)
+entry_search.pack()
+
+count_button = tk.Button(app, text="Count Strings", command=count_strings)
+count_button.pack(pady=10)
+
+output_label = tk.Label(app, text="")
+output_label.pack()
+
+app.mainloop()
+-------------------------------------------------------------------------------
+import tkinter as tk
+
+def read_and_display_numbers():
+    try:
+        with open('num.txt', 'r') as file:
+            numbers_list = [int(line.strip()) for line in file]
+
+            numbers_listbox.delete(0, tk.END)
+
+            # output in integer format
+            for number in numbers_list:
+                numbers_listbox.insert(tk.END, number)
+
+    except FileNotFoundError:
+        numbers_listbox.insert(tk.END, "File not found.")
+
+# main window
+app = tk.Tk()
+app.title("Numbers List App")
+
+# widgets creation
+read_button = tk.Button(app, text="Read and Display Numbers", command=read_and_display_numbers)
+read_button.pack(pady=10)
+
+numbers_listbox = tk.Listbox(app)
+numbers_listbox.pack()
+
+app.mainloop()
+------------------------------------------------------------------
+import tkinter as tk
+
+def count_letter():
+    try:
+        letter_to_count = entry_letter.get().lower()
+
+        with open('sentences.txt', 'r') as file:
+            content = file.read()
+            occurrences = content.lower().count(letter_to_count)
+
+            result_text = f'The letter "{letter_to_count}" appears {occurrences} times.'
+            output_label.config(text=result_text)
+
+    except FileNotFoundError:
+        output_label.config(text="File not found.")
+
+app = tk.Tk()
+app.title("Letter Count App")
+
+letter_label = tk.Label(app, text="Enter a letter:")
+letter_label.pack()
+
+entry_letter = tk.Entry(app)
+entry_letter.pack()
+
+count_button = tk.Button(app, text="Count Letter", command=count_letter)
+count_button.pack(pady=10)
+
+output_label = tk.Label(app, text="")
+output_label.pack()
+
+app.mainloop()
+----------------------------------------------------------------------------
+import tkinter as tk
+from tkinter import messagebox
+
+def handle_invalid_attempt(attempts_left):
+    messagebox.showwarning("Invalid Password", f"Invalid password. {attempts_left} attempts remaining.")
+    entry_password.delete(0, tk.END)  # this is to ensure retrying
+
+    if attempts_left == 0:
+        messagebox.showerror("Alert", "Authorities have been alerted! Too many incorrect attempts.")
+        app.destroy()
+
+def check_password():
+    global attempts_left
+    password = entry_password.get()
+
+    # if conditions on things possible and not possible with the password
+    if (
+        any(c.islower() for c in password) and
+        any(c.isdigit() for c in password) and
+        any(c.isupper() for c in password) and
+        any(c in "$#@%" for c in password) and
+        6 <= len(password) <= 12
+    ):
+        messagebox.showinfo("Password Valid", "Password is valid!")
+    else:
+        attempts_left -= 1
+        handle_invalid_attempt(attempts_left)
+
+# main window
+app = tk.Tk()
+app.title("Password Check App")
+
+# widgets
+password_label = tk.Label(app, text="Enter Password:")
+password_label.pack()
+
+entry_password = tk.Entry(app, show="*")
+entry_password.pack()
+
+check_button = tk.Button(app, text="Check Password", command=check_password)
+check_button.pack(pady=10)
+
+# attempts possible before it closes (please work)
+attempts_left = 5
+
+app.mainloop()

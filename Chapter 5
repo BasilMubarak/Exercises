@@ -1,0 +1,500 @@
+import tkinter as tk
+
+class Dog:
+    def __init__(self, name, age, breed):
+        self.name = name
+        self.age = age
+        self.breed = breed
+
+    def display_info(self):
+        return f"Name: {self.name}, Age: {self.age}, Breed: {self.breed}"
+
+    @classmethod
+    def woof(cls, dog1, dog2):
+        oldest_dog = dog1 if dog1.age > dog2.age else dog2
+        print(f"{oldest_dog.name} says Woof Woof!")
+
+app = tk.Tk()
+app.title("Woof Woof App")
+
+label_dog1 = tk.Label(app, text="Dog 1:")
+label_dog1.pack()
+
+dog1 = Dog("Luna", 2, "Golden retriever")
+label_dog1_info = tk.Label(app, text=dog1.display_info())
+label_dog1_info.pack()
+
+label_dog2 = tk.Label(app, text="Dog 2:")
+label_dog2.pack()
+
+dog2 = Dog("Calvus", 4, "Pitbull")
+label_dog2_info = tk.Label(app, text=dog2.display_info())
+label_dog2_info.pack()
+
+# this creates a button for the oldest dog to woof
+woof_button = tk.Button(app, text="Make the Oldest Dog Woof", command=lambda: Dog.woof(dog1, dog2))
+woof_button.pack(pady=10)
+
+app.mainloop()
+-----------------------------------------------------------------------------------------------------
+import tkinter as tk
+
+class Students:
+    def __init__(self, name, mark1, mark2, mark3):
+        self.Name = name
+        self.Mark1 = mark1
+        self.Mark2 = mark2
+        self.Mark3 = mark3
+
+    def calcGrade(self):
+        return (self.Mark1 + self.Mark2 + self.Mark3) / 3
+
+    def display(self):
+        average = self.calcGrade()
+        return f"Name: {self.Name}, Average Grade: {average:.2f}"
+
+def create_student():
+    name = entry_name.get()
+    mark1 = int(entry_mark1.get())
+    mark2 = int(entry_mark2.get())
+    mark3 = int(entry_mark3.get())
+
+    student = Students(name, mark1, mark2, mark3)
+    result_label.config(text=student.display())
+
+app = tk.Tk()
+app.title("Student Class App")
+
+label_name = tk.Label(app, text="Name:")
+label_name.pack()
+
+entry_name = tk.Entry(app)
+entry_name.pack()
+
+label_mark1 = tk.Label(app, text="Mark 1:")
+label_mark1.pack()
+
+entry_mark1 = tk.Entry(app)
+entry_mark1.pack()
+
+label_mark2 = tk.Label(app, text="Mark 2:")
+label_mark2.pack()
+
+entry_mark2 = tk.Entry(app)
+entry_mark2.pack()
+
+label_mark3 = tk.Label(app, text="Mark 3:")
+label_mark3.pack()
+
+entry_mark3 = tk.Entry(app)
+entry_mark3.pack()
+
+create_button = tk.Button(app, text="Create Student", command=create_student)
+create_button.pack(pady=10)
+
+result_label = tk.Label(app, text="")
+result_label.pack()
+
+app.mainloop()
+--------------------------------------------------
+import tkinter as tk
+
+class Employee:
+    def __init__(self):
+        self.name = ""
+        self.age = 0
+        self.id = 0
+        self.salary = 0.0
+
+    def setData(self, name, age, id, salary):
+        self.name = name
+        self.age = age
+        self.id = id
+        self.salary = salary
+
+    def getData(self):
+        return f"{self.name}\t\t{self.age}\t{self.salary}\t{self.id}"
+
+employees = []
+
+def add_employee():
+    name = entry_name.get()
+    age = int(entry_age.get())
+    id = int(entry_id.get())
+    salary = float(entry_salary.get())
+
+    employee = Employee()
+    employee.setData(name, age, id, salary)
+    employees.append(employee)
+
+    entry_name.delete(0, tk.END)
+    entry_age.delete(0, tk.END)
+    entry_id.delete(0, tk.END)
+    entry_salary.delete(0, tk.END)
+
+def display_employees():
+    result_text = "Name\t\tAge\tSalary\tID\n"
+    for employee in employees:
+        result_text += employee.getData() + "\n"
+
+    result_label.config(text=result_text)
+
+app = tk.Tk()
+app.title("Employee Class App")
+
+label_name = tk.Label(app, text="Name:")
+label_name.pack()
+
+entry_name = tk.Entry(app)
+entry_name.pack()
+
+label_age = tk.Label(app, text="Age:")
+label_age.pack()
+
+entry_age = tk.Entry(app)
+entry_age.pack()
+
+label_id = tk.Label(app, text="ID:")
+label_id.pack()
+
+entry_id = tk.Entry(app)
+entry_id.pack()
+
+label_salary = tk.Label(app, text="Salary:")
+label_salary.pack()
+
+entry_salary = tk.Entry(app)
+entry_salary.pack()
+
+add_button = tk.Button(app, text="Add Employee", command=add_employee)
+add_button.pack(pady=10)
+
+display_button = tk.Button(app, text="Display Employees", command=display_employees)
+display_button.pack(pady=10)
+
+result_label = tk.Label(app, text="")
+result_label.pack()
+
+app.mainloop()
+-----------------------------------------------------------
+import tkinter as tk
+import math
+
+class Shape:
+    def __init__(self):
+        self.sides = []
+
+    def inputSides(self):
+        pass
+
+class Circle(Shape):
+    def inputSides(self):
+        radius = float(entry_radius.get())
+        self.sides.append(radius)
+
+    def area(self):
+        if len(self.sides) == 1:
+            radius = self.sides[0]
+            return math.pi * radius**2
+
+class Rectangle(Shape):
+    def inputSides(self):
+        length = float(entry_length.get())
+        width = float(entry_width.get())
+        self.sides.extend([length, width])
+
+    def area(self):
+        if len(self.sides) == 2:
+            length, width = self.sides
+            return length * width
+
+class Triangle(Shape):
+    def inputSides(self):
+        a = float(entry_side_a.get())
+        b = float(entry_side_b.get())
+        c = float(entry_side_c.get())
+        self.sides.extend([a, b, c])
+
+    def area(self):
+        if len(self.sides) == 3:
+            a, b, c = self.sides
+            s = (a + b + c) / 2
+            return math.sqrt(s * (s - a) * (s - b) * (s - c))
+
+def calculate_area():
+    shape = shape_var.get()
+
+    if shape == "Circle":
+        circle = Circle()
+        circle.inputSides()
+        result_label.config(text=f"Area of Circle: {circle.area():.2f}")
+    elif shape == "Rectangle":
+        rectangle = Rectangle()
+        rectangle.inputSides()
+        result_label.config(text=f"Area of Rectangle: {rectangle.area():.2f}")
+    elif shape == "Triangle":
+        triangle = Triangle()
+        triangle.inputSides()
+        result_label.config(text=f"Area of Triangle: {triangle.area():.2f}")
+
+app = tk.Tk()
+app.title("Shapes Area Calculator")
+
+shape_var = tk.StringVar()
+shape_var.set("Circle")
+
+label_shape = tk.Label(app, text="Select Shape:")
+label_shape.pack()
+
+shape_menu = tk.OptionMenu(app, shape_var, "Circle", "Rectangle", "Triangle")
+shape_menu.pack()
+
+entry_radius = tk.Entry(app)
+entry_radius.pack()
+
+entry_length = tk.Entry(app)
+entry_length.pack()
+
+entry_width = tk.Entry(app)
+entry_width.pack()
+
+entry_side_a = tk.Entry(app)
+entry_side_a.pack()
+
+entry_side_b = tk.Entry(app)
+entry_side_b.pack()
+
+entry_side_c = tk.Entry(app)
+entry_side_c.pack()
+
+calculate_button = tk.Button(app, text="Calculate Area", command=calculate_area)
+calculate_button.pack(pady=10)
+
+result_label = tk.Label(app, text="")
+result_label.pack()
+
+app.mainloop()
+------------------------------------------------------------
+import tkinter as tk
+
+class Animal:
+    def __init__(self, animal_type, name, colour, age, weight, noise):
+        self.Type = animal_type
+        self.Name = name
+        self.Colour = colour
+        self.Age = age
+        self.Weight = weight
+        self.Noise = noise
+
+    def sayHello(self):
+        print(f"{self.Type} {self.Name} says hello!")
+
+    def makeNoise(self):
+        print(f"{self.Type} {self.Name} makes a {self.Noise} noise!")
+
+    def animalDetails(self):
+        details = (
+            f"Type: {self.Type}\n"
+            f"Name: {self.Name}\n"
+            f"Colour: {self.Colour}\n"
+            f"Age: {self.Age}\n"
+            f"Weight: {self.Weight}\n"
+            f"Noise: {self.Noise}\n"
+        )
+        return details
+
+app = tk.Tk()
+app.title("Animal Class App")
+
+dog = Animal("Dog", "Buddy", "Black", 3, 15, "Bark")
+cow = Animal("Cow", "MooMoo", "Black and White", 5, 500, "Moo")
+
+button_dog_hello = tk.Button(app, text="Dog: Say Hello", command=dog.sayHello)
+button_dog_hello.pack()
+
+button_dog_noise = tk.Button(app, text="Dog: Make Noise", command=dog.makeNoise)
+button_dog_noise.pack()
+
+button_dog_details = tk.Button(app, text="Dog: Animal Details", command=lambda: print(dog.animalDetails()))
+button_dog_details.pack()
+
+button_cow_hello = tk.Button(app, text="Cow: Say Hello", command=cow.sayHello)
+button_cow_hello.pack()
+
+button_cow_noise = tk.Button(app, text="Cow: Make Noise", command=cow.makeNoise)
+button_cow_noise.pack()
+
+button_cow_details = tk.Button(app, text="Cow: Animal Details", command=lambda: print(cow.animalDetails()))
+button_cow_details.pack()
+
+app.mainloop()
+--------------------------------------------------------------
+import tkinter as tk
+from tkinter import ttk
+
+class Animal:
+    def __init__(self, animal_type, name, colour, age, weight, noise):
+        self.Type = animal_type
+        self.Name = name
+        self.Colour = colour
+        self.Age = age
+        self.Weight = weight
+        self.Noise = noise
+
+    def sayHello(self):
+        print(f"{self.Type} {self.Name} says hello!")
+
+    def makeNoise(self):
+        print(f"{self.Type} {self.Name} makes a {self.Noise} noise!")
+
+    def animalDetails(self):
+        details = (
+            f"Type: {self.Type}\n"
+            f"Name: {self.Name}\n"
+            f"Colour: {self.Colour}\n"
+            f"Age: {self.Age}\n"
+            f"Weight: {self.Weight}\n"
+            f"Noise: {self.Noise}\n"
+        )
+        return details
+
+class Operations:
+    def __init__(self):
+        self.result = 0
+
+    def ArithmeticOperation(self, operation, value1, value2):
+        if operation == "Addition":
+            self.result = value1 + value2
+        elif operation == "Subtraction":
+            self.result = value1 - value2
+        elif operation == "Multiplication":
+            self.result = value1 * value2
+        elif operation == "Division":
+            if value2 != 0:
+                self.result = value1 / value2
+            else:
+                self.result = "Error: Cannot divide by zero"
+
+    def RelationalOperation(self, operation, value1, value2):
+        if operation == "Greater Than":
+            self.result = value1 > value2
+        elif operation == "Less Than":
+            self.result = value1 < value2
+        elif operation == "Equal To":
+            self.result = value1 == value2
+
+app = tk.Tk()
+app.title("Animal and Operations App")
+
+# widgets for the animal
+label_animal_type = tk.Label(app, text="Enter Animal Type:")
+label_animal_type.pack()
+
+entry_animal_type = tk.Entry(app)
+entry_animal_type.pack()
+
+label_animal_name = tk.Label(app, text="Enter Animal Name:")
+label_animal_name.pack()
+
+entry_animal_name = tk.Entry(app)
+entry_animal_name.pack()
+
+label_animal_colour = tk.Label(app, text="Enter Animal Colour:")
+label_animal_colour.pack()
+
+entry_animal_colour = tk.Entry(app)
+entry_animal_colour.pack()
+
+label_animal_age = tk.Label(app, text="Enter Animal Age:")
+label_animal_age.pack()
+
+entry_animal_age = tk.Entry(app)
+entry_animal_age.pack()
+
+label_animal_weight = tk.Label(app, text="Enter Animal Weight:")
+label_animal_weight.pack()
+
+entry_animal_weight = tk.Entry(app)
+entry_animal_weight.pack()
+
+label_animal_noise = tk.Label(app, text="Enter Animal Noise:")
+label_animal_noise.pack()
+
+entry_animal_noise = tk.Entry(app)
+entry_animal_noise.pack()
+
+result_animal_label = tk.Label(app, text="")
+result_animal_label.pack()
+
+def create_animal():
+    animal_type = entry_animal_type.get()
+    name = entry_animal_name.get()
+    colour = entry_animal_colour.get()
+    age = int(entry_animal_age.get())
+    weight = float(entry_animal_weight.get())
+    noise = entry_animal_noise.get()
+
+    animal = Animal(animal_type, name, colour, age, weight, noise)
+
+    result_animal_label.config(text=animal.animalDetails())
+
+create_animal_button = tk.Button(app, text="Create Animal", command=create_animal)
+create_animal_button.pack(pady=10)
+
+# widgets for the operations
+label_operation_type = tk.Label(app, text="Select Operation Type:")
+label_operation_type.pack()
+
+operation_types = ["Arithmetic", "Relational"]
+operation_type_var = tk.StringVar()
+operation_type_var.set(operation_types[0])
+
+operation_type_menu = ttk.Combobox(app, textvariable=operation_type_var, values=operation_types)
+operation_type_menu.pack()
+
+label_operation = tk.Label(app, text="Select Operation:")
+label_operation.pack()
+
+arithmetic_operations = ["Addition", "Subtraction", "Multiplication", "Division"]
+relational_operations = ["Greater Than", "Less Than", "Equal To"]
+
+operation_var = tk.StringVar()
+operation_var.set(arithmetic_operations[0])
+
+operation_menu = ttk.Combobox(app, textvariable=operation_var, values=arithmetic_operations)
+operation_menu.pack()
+
+label_value1 = tk.Label(app, text="Enter Value 1:")
+label_value1.pack()
+
+entry_value1 = tk.Entry(app)
+entry_value1.pack()
+
+label_value2 = tk.Label(app, text="Enter Value 2:")
+label_value2.pack()
+
+entry_value2 = tk.Entry(app)
+entry_value2.pack()
+
+result_operation_label = tk.Label(app, text="")
+result_operation_label.pack()
+
+def perform_operation():
+    operation_type = operation_type_var.get()
+    operation = operation_var.get()
+    value1 = float(entry_value1.get())
+    value2 = float(entry_value2.get())
+
+    operation_obj = Operations()
+
+    if operation_type == "Arithmetic":
+        operation_obj.ArithmeticOperation(operation, value1, value2)
+    elif operation_type == "Relational":
+        operation_obj.RelationalOperation(operation, value1, value2)
+
+    result_operation_label.config(text=f"Result: {operation_obj.result}")
+
+perform_operation_button = tk.Button(app, text="Perform Operation", command=perform_operation)
+perform_operation_button.pack(pady=10)
+
+app.mainloop()

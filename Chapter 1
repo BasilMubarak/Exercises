@@ -7,3 +7,179 @@ print(f"It is good to meet you, {name}")
 print("The length of your name is:")
 print(name_length)
 print(f"You will be {future_age} in a year.")
+---------------------------------------------
+# this is for the user to put two integers or numbers
+num1 = int(input("Enter the first integer: "))
+num2 = int(input("Enter the second integer: "))
+sum_result = num1 + num2
+difference_result = num1 - num2
+product_result = num1 * num2
+if num2 != 0:
+    quotient_result = num1 / num2
+    remainder_result = num1 % num2
+else:
+    quotient_result = "Undefined (division by zero)"
+    remainder_result = "Undefined (division by zero)"
+print(f"Sum: {num1} + {num2} = {sum_result}")
+print(f"Difference: {num1} - {num2} = {difference_result}")
+print(f"Product: {num1} * {num2} = {product_result}")
+print(f"Quotient: {num1} / {num2} = {quotient_result}")
+print(f"Remainder: {num1} % {num2} = {remainder_result}")
+-----------------------------------------------------------
+def is_triangle(a, b, c):
+    return a + b > c and a + c > b and b + c > a
+def classify_triangle(a, b, c):
+    if a == b == c:
+        return "Equilateral"
+    elif a == b or a == c or b == c:
+        return "Isosceles"
+    else:
+        return "Scalene"
+def main():
+    try:
+        a = float(input("Enter the length of the first side: "))
+        b = float(input("Enter the length of the second side: "))
+        c = float(input("Enter the length of the third side: "))
+        if a <= 0 or b <= 0 or c <= 0:
+            print("Side lengths must be positive values.")
+        elif is_triangle(a, b, c):
+            triangle_type = classify_triangle(a, b, c)
+            print(f"These side lengths make sense, you can form a triangle of the {triangle_type} type!")
+        else:
+            print("These side lengths cannot form a triangle, as the sum of the side lengths doesn't make sense.")
+    except ValueError:
+        print("Please enter valid numeric values for the side lengths.")
+if __name__ == "__main__":
+    main()
+--------------------------------------------------------------------------------------------------------------------
+num1 = float(input("Enter the first number: "))
+num2 = float(input("Enter the second number: "))
+num3 = float(input("Enter the third number: "))
+if num1 >= num2 and num1 >= num3:
+    largest = num1
+elif num2 >= num1 and num2 >= num3:
+    largest = num2
+else:
+    largest = num3
+print("The largest number amongst these is:", largest)
+---------------------------------------------------------
+count = 0 
+while True:
+    user_input = input("Do you want to continue (Y/N)? ").strip().upper()    
+    if user_input == 'Y':
+        count += 1
+    elif user_input == 'N':
+        break
+    else:
+        print("You did not input 'Y' or 'N'. Please enter 'Y' to continue or 'N' to exit.")
+print(f"You entered Y and repeated the loop {count} times.")
+------------------------------------------------------------------------------------------------
+for num in range(1, 101):
+    if num % 3 == 0 and num % 5 == 0:
+        print("FizzBuzz")
+    elif num % 3 == 0:
+        print("Fizz")
+    elif num % 5 == 0:
+        print("Buzz")
+    else:
+        print(num)
+        #this is actually a fun exercise
+---------------------------------------------------------------------------------
+for num in range(1, 101):
+    if num % 2 != 0: 
+        continue # this ensures skipping odd numbers and continuing to the next iteration
+    print(num)  
+-------------------------------------------------------------------------------------------
+n = 5 #<< this is equivalent to the number of rows in the pattern
+for i in range(1, n + 1):
+    for j in range(1, i + 1):
+        print(j, end=" ")
+    print()
+---------------------------------------------------------------------
+integer_list = [5, 10, 3, 8, 15, 1, 9, 7, 12, 6]
+print("List:")
+for number in integer_list:
+    print(number, end=" ")
+# this is to output the highest and lowest value in the list
+highest = max(integer_list)
+lowest = min(integer_list)
+print("\nHighest Value:", highest)
+print("Lowest Value:", lowest)
+# this makes sure that they are in ascending order
+ascending_sorted_list = sorted(integer_list)
+print("Ascending Sorted List:", ascending_sorted_list)
+# ("                                descending")
+descending_sorted_list = sorted(integer_list, reverse=True)
+print("Descending Sorted List:", descending_sorted_list)
+integer_list.append(20)
+integer_list.append(2)
+print("List after appending:", integer_list)
+------------------------------------------------------------------
+# this is the dictionary for the film of my choice
+film = {
+    "Name": "Transformers",
+    "Director": "Micheal Bay",
+    "Year it was published": 2007,
+    "Genre": "Action",
+    "Duration": 144,  #mins (duration in hours is 2hrs and 24 mins)
+}
+print("Film Details:")
+for key, value in film.items():
+    print(f"{key}: {value}")
+----------------------------------------------------------------------
+year = (2017, 2003, 2011, 2005, 1987, 2009, 2020, 2018, 2009)
+value_at_index_minus_3 = year[-3]
+print("Value at index -3:", value_at_index_minus_3)
+# this reverses the tuple and prints the original and updated tuple
+reversed_year = tuple(reversed(year))
+print("Original Tuple:", year)
+print("Reversed Tuple:", reversed_year)
+count_2009 = year.count(2009)
+print("Number of times 2009 appears in the tuple:", count_2009)
+index_2018 = year.index(2018)
+print("Index of 2018:", index_2018)
+tuple_length = len(year)
+print("Length of the tuple:", tuple_length)
+-------------------------------------------------------------------------
+import math
+def calculate_square_area():
+    side_length = float(input("Enter the side length of the square: "))
+    area = side_length ** 2
+    print(f"The area of the square is: {area}")
+def calculate_circle_area():
+    radius = float(input("Enter the radius of the circle: "))
+    area = math.pi * (radius ** 2)
+    print(f"The area of the circle is: {area}")
+def calculate_triangle_area():
+    base = float(input("Enter the base length of the triangle: "))
+    height = float(input("Enter the height of the triangle: "))
+    area = 0.5 * base * height
+    print(f"The area of the triangle is: {area}")
+#^^^ these codes make sure to ask you details regarding your choice on wanting the side length of a square, the radius of a circle, or the base length + height of a triangle.
+while True:
+    print("Choose which one you want to calculate:")
+    print("1: Calculate the area of a square")
+    print("2: Calculate the area of a circle")
+    print("3: Calculate the area of a triangle")
+    print("4: Exit the prompt")
+    choice = input("Enter your choice: ")
+    if choice == '1':
+        calculate_square_area()
+    elif choice == '2':
+        calculate_circle_area()
+    elif choice == '3':
+        calculate_triangle_area()
+    elif choice == '4':
+        break
+    else:
+        print("Invalid choice. Please enter 1, 2, 3, or 4 to quit.")
+----------------------------------------------------------------------------------
+def calculate_product(lst):
+    product = 1 
+    for item in lst:
+        product *= item
+    return product
+my_list = [2, 3, 4, 5]
+# names the function to get the result of the list
+result = calculate_product(my_list)
+print(f"The product of the list items is: {result}")
